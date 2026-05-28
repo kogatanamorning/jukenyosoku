@@ -1,0 +1,11 @@
+# Excel 原本 (data.json で代替・サイズ大)
+入試データベース.xlsx
+*.xlsx
+
+# Python キャッシュ
+__pycache__/
+*.pyc
+
+# OS
+.DS_Store
+Thumbs.db

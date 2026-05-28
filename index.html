@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>受験校 倍率予測システム</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header>
+  <h1>受験校 倍率予測システム</h1>
+  <div id="loadStatus" class="load-status">データ読み込み中...</div>
+</header>
+
+<nav class="tabs">
+  <button class="tab-btn active" data-tab="bairitsu">倍率検索</button>
+  <button class="tab-btn" data-tab="kyotest">共テ検索</button>
+  <button class="tab-btn" data-tab="banzai">ばんざい入力</button>
+  <button class="tab-btn" data-tab="output">AI出力</button>
+</nav>
+
+<main>
+  <!-- ===== 倍率検索 ===== -->
+  <section id="tab-bairitsu" class="tab-panel active">
+    <h2>倍率検索</h2>
+    <div class="filters">
+      <label>大学
+        <select id="b_univ"><option value="">▼ 大学を選択</option></select>
+      </label>
+      <label>学部・学科
+        <select id="b_dept"><option value="">（すべて）</option></select>
+      </label>
+      <label>入試方式
+        <select id="b_method">
+          <option value="">（すべて）</option>
+          <option value="前期日程">前期日程</option>
+          <option value="後期日程">後期日程</option>
+          <option value="中期日程">中期日程</option>
+        </select>
+      </label>
+      <span id="b_count" class="count"></span>
+    </div>
+    <div class="table-wrap">
+      <table id="b_table">
+        <thead><tr>
+          <th>年度</th><th>大学</th><th>学部</th><th>学科</th><th>方式</th>
+          <th>募集</th><th>志願</th><th>受験</th><th>合格</th><th>競争率</th><th>前年</th>
+        </tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ===== 共テ検索 ===== -->
+  <section id="tab-kyotest" class="tab-panel">
+    <h2>共通テスト ボーダー・必要科目 検索</h2>
+    <div class="filters">
+      <label>大学
+        <select id="k_univ"><option value="">▼ 大学を選択</option></select>
+      </label>
+      <label>学部・学科
+        <select id="k_dept"><option value="">（すべて）</option></select>
+      </label>
+      <label>入試方式
+        <select id="k_method">
+          <option value="">（すべて）</option>
+          <option value="前期日程">前期日程</option>
+          <option value="後期日程">後期日程</option>
+          <option value="中期日程">中期日程</option>
+        </select>
+      </label>
+      <span id="k_count" class="count"></span>
+    </div>
+    <div class="table-wrap">
+      <table id="k_table">
+        <thead><tr>
+          <th>年度</th><th>大学</th><th>学部</th><th>学科</th><th>方式</th>
+          <th>ボーダー%</th><th>偏差値</th><th>共テ満点</th><th>2次満点</th><th>個別比率</th>
+          <th>共テ科目</th><th>2次科目</th>
+        </tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ===== ばんざい入力 ===== -->
+  <section id="tab-banzai" class="tab-panel">
+    <h2>ばんざいシステム データ入力</h2>
+    <p class="note">河合塾ばんざいシステムの数値を志望校ごとに入力。ブラウザに自動保存されます（この端末のみ）。</p>
+    <div class="banzai-actions">
+      <button id="bz_add">＋ 行を追加</button>
+      <button id="bz_export">JSONエクスポート</button>
+      <button id="bz_import_btn">JSONインポート</button>
+      <input type="file" id="bz_import" accept=".json" style="display:none">
+      <span id="bz_saved" class="saved-indicator"></span>
+    </div>
+    <div class="table-wrap">
+      <table id="bz_table">
+        <thead><tr>
+          <th>大学</th><th>学部・学科</th><th>方式</th>
+          <th>集計</th><th>第1志望</th><th>前年比%</th><th>予想B%</th>
+          <th>A</th><th>B</th><th>C</th><th>D</th><th>E</th><th></th>
+        </tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ===== 統合出力 ===== -->
+  <section id="tab-output" class="tab-panel">
+    <h2>AI投入用 統合出力</h2>
+    <p class="note">受験大学と関連大学(5校まで)を選択 → AI に渡す Markdown を生成します。</p>
+    <div class="output-selects">
+      <div class="slot-row header-row">
+        <span>区分</span><span>大学</span><span>学部・学科</span><span>方式</span>
+      </div>
+      <div id="o_slots"></div>
+    </div>
+    <div class="output-actions">
+      <button id="o_generate">▶ Markdown 生成</button>
+      <button id="o_copy">📋 コピー</button>
+      <span id="o_copied" class="saved-indicator"></span>
+    </div>
+    <textarea id="o_markdown" rows="24" placeholder="「Markdown 生成」を押すとここに出力されます"></textarea>
+  </section>
+</main>
+
+<footer>
+  <small>データ出典: 旺文社パスナビ / 大学入試センター ｜ 収録: 倍率2023-2025・共テボーダー2025・共テ平均2021-2026</small>
+</footer>
+
+<script src="js/app.js"></script>
+</body>
+</html>
