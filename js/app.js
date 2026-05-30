@@ -92,7 +92,7 @@ function renderBairitsu() {
     const dept = deptLabel(r.f, r.d);
     if (d && dept !== d) return;
     if (m && r.m !== m) return;
-    ["2025","2024","2023"].forEach(y => {
+    ["2026","2025","2024","2023"].forEach(y => {
       const b = r.bairitsu[y];
       if (!b) return;
       rows.push({ y, u: r.u, f: r.f, d: r.d, m: r.m, ...b });
@@ -345,7 +345,7 @@ function generateMarkdown() {
 
     md += "**過去倍率**\n";
     md += "| 年度 | 募集 | 志願 | 受験 | 合格 | 競争率 | 前年競争率 |\n|---|---|---|---|---|---|---|\n";
-    ["2025","2024","2023"].forEach(y => {
+    ["2026","2025","2024","2023"].forEach(y => {
       const b = rec.bairitsu[y];
       if (b) md += `| ${y} | ${fmt(b.boshu)} | ${fmt(b.shigan)} | ${fmt(b.juken)} | ${fmt(b.gokaku)} | ${fmtF(b.ku)} | ${fmtF(b.kuprv)} |\n`;
     });
