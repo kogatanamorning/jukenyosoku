@@ -17,6 +17,7 @@ header {
 }
 header h1 { margin: 0; font-size: 20px; }
 .load-status { font-size: 12px; opacity: 0.85; }
+.update-date { font-size: 11px; opacity: 0.75; margin-left: auto; white-space: nowrap; }
 
 /* タブ */
 .tabs {

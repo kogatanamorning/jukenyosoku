@@ -20,6 +20,12 @@ async function init() {
   document.getElementById("loadStatus").textContent =
     `データ ${DB.records.length}件 / ${DB.universities.length}大学`;
 
+  // 更新日時を右上に表示
+  const updated = DB.meta && DB.meta.updated;
+  if (updated) {
+    document.getElementById("updateDate").textContent = `データ更新: ${updated}`;
+  }
+
   setupTabs();
   setupBairitsu();
   setupKyotest();
